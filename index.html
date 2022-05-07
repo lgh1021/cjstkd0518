@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="kr" ng-app="yourApp">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="keywords" content="포트폴리오">
+  <meta name="description" content="">
+  <meta http-equiv="X-UA-COmpatible" content="IE=edge">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no,address=no,email=no">
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+  <script type="text/javascript" src="js/html5shiv.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+  <script type="text/javascript" src="js/angularjs-gauge.js"></script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+  <script type="text/javascript" src="js/jquery.fancybox.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
+
+
+  <link rel="stylesheet" href="css/style.css" type="text/css">
+  <link rel="stylesheet" href="css/hamberger.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/notosanskr.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css" type="text/css">
+  <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.css"
+    type="text/css">
+  <link rel="shortcut icon" href="img/shortcut.ico">
+  <title>Our Special Journey</title>
+
+  <script>
+
+    $(function () {
+      /*메뉴*/
+      $(".menu-link").click(function (e) {
+        e.preventDefault();
+        $(".menu-overlay").toggleClass("open");
+        $(".menu").toggleClass("open");
+
+        if ($('.menu-overlay.open').css('visibility') == 'visible') {
+          $('.menu-overlay').on('scroll touchmove mousewheel', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+          });
+          $('body').css({ 'overflow': 'hidden', 'height': '100%' });
+          $('.menu-circle').hide();
+        };
+
+        if ($('.menu-overlay').css('visibility') == 'hidden') {
+          $('.menu-overlay').off('scroll touchmove mousewheel');
+          $('body').css({ 'overflow': 'auto', 'height': '100%' });
+          $('.menu-circle').show();
+
+        };
+      });
+
+      //메뉴선택시 메뉴창 사라지기
+      $('.menu-overlay>li>a').on('click', function (e) {
+        e.preventDefault();
+        $('.menu-overlay a:hover').css('transition-duration', '0s');
+        $(".menu-overlay").toggleClass("open");
+        $(".menu").toggleClass("open");
+
+        if ($('.menu-overlay').css('visibility') == 'hidden') {
+          $('.menu-overlay').off('scroll touchmove mousewheel');
+          $('body').css({ 'overflow': 'auto', 'height': '100%' });
+          $('.menu-circle').show();
+          $('.menu-overlay a:hover').css('transition-duration', '0.2s');
+
+        };
+      });
+
+      //스크롤 이동 애니메이션
+      $('.menu-overlay>li:nth-of-type(1)>a').on('click', function () {
+        $.scrollTo('0px', 800);
+      });
+      $('.menu-overlay>li:nth-of-type(2)>a').on('click', function () {
+        $.scrollTo('#about_wrap', 800);
+      });
+      $('.menu-overlay>li:nth-of-type(3)>a').on('click', function () {
+        $.scrollTo('#portfolio_wrap', 800);
+      });
+      $('.menu-overlay>li:nth-of-type(4)>a').on('click', function () {
+        $.scrollTo('#contact_wrap', 800);
+      });
+
+
+      //슬라이드
+      $('.portfolio-slides').slick({
+        prevArrow: '<img src="img/slide_back.png" alt="">',
+        nextArrow: '<img src="img/slide_next.png" alt="">',
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              arrows: false,
+              slidesToShow: 2,
+              slidesToScroll: 1,
+              dots: true
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              arrows: false,
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              dots: true
+            }
+          }
+        ]
+
+      });
+
+      //포폴 마우스오버
+      $('.gif>a>img').on('mouseenter', function () {
+
+        var src = $(this).attr("src");
+        console.log(src)
+        var point = src.indexOf(".");
+        var newsrc = src.substring(0, point) + ".gif";
+        var originalsrc = src.substring(0, point) + ".png";
+
+        $(this).attr("src", newsrc);
+
+      });
+      $('.gif>a>img').on('mouseleave', function () {
+        var src = $(this).attr("src");
+        console.log(src)
+        var point = src.indexOf(".");
+        var newsrc = src.substring(0, point) + ".gif";
+        var originalsrc = src.substring(0, point) + ".png";
+
+        $(this).attr("src", originalsrc);
+
+      });
+
+      $('.doom_thumb>a>img').on('mouseenter', function () {
+        $(this).fadeOut(function () {
+          $(this).attr("src", "img/qr_doom.png").fadeIn();
+        });
+
+      });
+      $('.doom_thumb>a>img').on('mouseleave', function () {
+        $(this).fadeOut(function () {
+          $(this).attr("src", "img/doom.png").fadeIn();
+        });
+
+      });
+
+
+      $('.cat_thumb>a>img').on('mouseenter', function () {
+        $(this).fadeOut(function () {
+          $(this).attr("src", "img/qr_cat.png").fadeIn();
+        });
+
+      });
+      $('.cat_thumb>a>img').on('mouseleave', function () {
+        $(this).fadeOut(function () {
+          $(this).attr("src", "img/cat.png").fadeIn();
+        });
+      });
+
+      //스크롤바 위치마다 애니메이션	
+      $(window).scroll(function () { //스크롤바가 움직일때 마다 호출
+        var height = $(document).scrollTop(); //현재 스크롤바 위치를 저장
+
+
+        var about = $('.about_title span:nth-of-type(1)').offset();
+        var skill1 = $('.skill_title>span:nth-of-type(1)').offset();
+        var abill = $('.abil_title>span:nth-of-type(1)').offset();
+        var port = $('.portfolio_title span:nth-of-type(1)').offset();
+        var etc = $('.etc_title>span:nth-of-type(1)').offset();
+        var contact = $('.contact_title span:nth-of-type(1)').offset();
+
+
+        if (height >= about.top - 300) {
+          $('.about_title span:nth-of-type(1)').addClass('on');
+        } else {
+          $('.about_title span:nth-of-type(1)').removeClass('on');
+        };
+
+        if (height >= skill1.top - 200) {
+          $('.skill_title>span:nth-of-type(1)').addClass('on');
+          $('.skill_title>span:nth-of-type(2)').addClass('on');
+        } else {
+          $('.skill_title>span:nth-of-type(1)').removeClass('on');
+          $('.skill_title>span:nth-of-type(2)').removeClass('on');
+        };
+
+        if (height >= abill.top - 200) {
+          $('.abil_title>span:nth-of-type(1)').addClass('on');
+          $('.abil_title>span:nth-of-type(2)').addClass('on');
+        } else {
+          $('.abil_title>span:nth-of-type(1)').removeClass('on');
+          $('.abil_title>span:nth-of-type(2)').removeClass('on');
+        };
+
+
+        if (height >= port.top - 300) {
+          $('.portfolio_title span:nth-of-type(1)').addClass('on');
+          $('.webapp_title>span:nth-of-type(1)').addClass('on');
+          $('.webapp_title>span:nth-of-type(2)').addClass('on');
+        } else {
+          $('.portfolio_title span:nth-of-type(1)').removeClass('on');
+          $('.webapp_title>span:nth-of-type(1)').removeClass('on');
+          $('.webapp_title>span:nth-of-type(2)').removeClass('on');
+        };
+
+
+        if (height >= etc.top - 200) {
+          $('.etc_title>span:nth-of-type(1)').addClass('on');
+          $('.etc_title>span:nth-of-type(2)').addClass('on');
+        } else {
+          $('.etc_title>span:nth-of-type(1)').removeClass('on');
+          $('.etc_title>span:nth-of-type(2)').removeClass('on');
+        };
+
+
+        if (height >= contact.top - 400) {
+          $('.contact_title span:nth-of-type(1)').addClass('on');
+        } else {
+          $('.contact_title span:nth-of-type(1)').removeClass('on');
+        };
+      });
+
+
+    });
+
+    //팝업
+    $(document).ready(function () {
+
+
+      $('.hans_thumb>a>img').click(function (event) {
+        event.preventDefault();
+        $('.popup_1').show();
+
+        if ($('.popup_1').css('display') == 'block') {
+          $("body").addClass('hidden');
+        };
+      });
+
+      $('.dell_thumb>a>img').click(function (event) {
+        event.preventDefault();
+        $('.popup_2').show();
+        if ($('.popup_2').css('display') == 'block') {
+          $("body").addClass('hidden');
+        };
+      });
+      $('.doom_thumb>a>img').click(function (event) {
+        event.preventDefault();
+        $('.popup_3').show();
+        if ($('.popup_3').css('display') == 'block') {
+          $("body").addClass('hidden');
+        };
+      });
+      $('.cat_thumb>a>img').click(function (event) {
+        event.preventDefault();
+        $('.popup_4').show();
+        if ($('.popup_4').css('display') == 'block') {
+          $("body").addClass('hidden');
+        };
+      });
+
+
+      //팝업클릭하면 사라지기
+      $('.popup').click(function () {
+        $(this).css('display', 'none');
+        if ($('.popup').css('display') == 'none') {
+          $("body").removeClass('hidden');
+        };
+      });
+
+
+
+      $('.hans_thumb>a>img').click(function (event) {
+
+
+
+      });
+
+
+
+
+    });
+
+
+    angular.module('yourApp', ['angularjs-gauge']);
+
+  </script>
+
+</head>
+
+<body>
+  <div class="container">
+    <header>
+
+      <h1><a href=""><img src="img/logo.png" alt="로고"></a></h1>
+      <ul class="menu-overlay">
+        <li><a href="javascript:;">HOME</a></li>
+        <li><a href="javascript:;">ABOUT ME</a></li>
+        <li><a href="javascript:;">PORTFOLIO</a></li>
+        <li><a href="javascript:;">CONTACT</a></li>
+      </ul>
+      <div class="menu">
+        <span class="menu-circle"></span>
+        <a href="#" class="menu-link">
+          <span class="menu-icon">
+            <span class="menu-line menu-line-1"></span>
+            <span class="menu-line menu-line-2"></span>
+            <span class="menu-line menu-line-3"></span>
+          </span>
+        </a>
+      </div>
+
+    </header>
+
+
+    <section id="main_wrap">
+      <div class="main_title">
+        <h2>maintitle</h2>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </section>
+
+    <section id="about_wrap">
+      <div class="about_title anime">
+        <h2><img src="img/about_title.png" alt="about me"></h2>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="profile_wrap">
+        <div class="it_me">
+          <img src="img/itme.png" alt="프로필 사진">
+        </div>
+
+        <ul class="about_content_wrap">
+          <li class="name">
+            <img src="img/name.png" alt="이름">
+            <span>이경하</span>
+          </li>
+          <li class="birth">
+            <img src="img/birthday.png" alt="생년월일">
+            <span>92.05.18</span>
+          </li>
+          <li class="education">
+            <img src="img/edu_1.png" alt="학력">
+            <span>명지전문대학 커뮤니케이션 디자인과 졸업</span>
+          </li>
+          <li class="education2">
+            <span>NCS 디지털(UI/UX활용 모바일 웹)디자인 실무 과목 수료</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <section class="skill_wrap">
+      <div class="skill_title anime">
+        <h3><img src="img/skil_title.png" alt="skills"></h3>
+        <span></span>
+        <span></span>
+      </div>
+
+
+      <ul class="skill_gauge">
+        <li>
+          <ng-gauge value="82" append="%" cap="round" thick="13" background-color="#fafafb" foreground-color="#2d3e50">
+
+          </ng-gauge>
+          <span><img src="img/ps.png" alt="포토샵"></span>
+        </li>
+
+        <li>
+          <ng-gauge value="74" append="%" cap="round" thick="13" background-color="#fafafb" foreground-color="#ff8f0a"
+            size="190">
+          </ng-gauge>
+          <span><img src="img/ai.png" alt="일러스트레이터"></span>
+        </li>
+
+        <li>
+          <ng-gauge value="85" append="%" cap="round" thick="13" background-color="#fafafb" foreground-color="#e04848">
+          </ng-gauge>
+          <span><img src="img/html.png" alt="html"></span>
+        </li>
+
+        <li>
+          <ng-gauge value="78" append="%" cap="round" thick="13" background-color="#fafafb" foreground-color="#5cd8e5"
+            size="190">
+          </ng-gauge>
+          <span><img src="img/css.png" alt="css"></span>
+        </li>
+
+        <li>
+          <ng-gauge value="70" append="%" cap="round" thick="13" background-color="#fafafb" foreground-color="#0868ac"
+            size="180">
+          </ng-gauge>
+          <span><img src="img/jq.png" alt="제이쿼리"></span>
+        </li>
+      </ul>
+
+    </section>
+
+    <section class="abil_wrap">
+      <div class="abil_title anime">
+        <h3><img src="img/abil.png" alt="abilities"></h3>
+        <span></span>
+        <span></span>
+      </div>
+
+      <ul class="abil_content">
+        <li class="abil1">
+          <img src="img/coding.png" alt="coding">
+          <p>HTML / CSS / JQUERY를 사용하여 웹 사이트를 구현할 수 있습니다</p>
+        </li>
+        <li class="abil2">
+          <img src="img/drowing.png" alt="graphic tool">
+          <p>그래픽 툴로 이미지를 꾸미거나 보정하고, 캐릭터나 아이콘을 그릴 수 있습니다</p>
+        </li>
+        <li class="abil3">
+          <img src="img/seach.png" alt="seach">
+          <p>데이터를 검색, 수집해 스토리텔링 할 수 있습니다</p>
+        </li>
+      </ul>
+
+    </section>
+
+    <section id="portfolio_wrap">
+      <div class="popup_1 popup">
+        <p>
+          <a href="http://cjstkd0519.dothome.co.kr" target="_blank"><img src="img/popup_1_button.png" alt=""></a>
+          <img src="img/popup_1.jpg" alt="한스 팝업이미지">
+
+        </p>
+      </div>
+      <div class="popup_2 popup">
+        <p>
+
+          <img src="img/popup_2.jpg" alt="오토위니 팝업이미지">
+
+        </p>
+      </div>
+      <div class="popup_3 popup">
+        <p>
+
+          <img src="img/popup_3.jpg" alt="두둠칫 팝업이미지">
+
+        </p>
+      </div>
+      <div class="popup_4 popup">
+        <p>
+
+          <img src="img/popup_4.jpg" alt="앗고양이 팝업이미지">
+
+        </p>
+      </div>
+
+
+      <div class="portfolio_title anime">
+        <h2><img src="img/port_title.png" alt="portfolio"></h2>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="webapp_title anime">
+        <h3><img src="img/webapp_tltle.png" alt="web/app"></h3>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="thumb_wrap">
+        <figure class="hans_thumb gif">
+          <a href="">
+            <img src="img/hans.png" alt="한스 웹페이지">
+          </a>
+
+          <figcaption>
+            <p>기업 반응형 홈페이지 리뉴얼</p>
+            <strong>한스케익</strong>
+            <p>
+              부드럽고 달콤한 케이크의 이미지를 살려 주요색상을 선정<br>
+              시선을 집중시키기 위한 큰 타이포그래피 타이틀<br>
+              슬라이드 효과로 단조로움을 방지
+              <img class="check_1" src="img/html5-blue.png" alt="html5 웹 표준 통과">
+            </p>
+
+            <img src="img/hans_tool.png" alt="html5+css+jq">
+          </figcaption>
+        </figure>
+        <div class="star_line_1"></div>
+        <figure class="dell_thumb gif">
+          <a href="img/slide_a_9.jpg" data-type="image" data-fancybox data-caption="기업 홈페이지 리뉴얼 시안 2017"
+            data-selectable="true"><img src="img/dell.png" alt="오토위니 웹페이지"></a>
+          <figcaption>
+            <p>기업 홈페이지 리뉴얼 시안</p>
+            <strong>오토위니</strong>
+            <p>
+              풀사이즈 이미지를 이용한 메인화면<br>
+              트렌디하고 신뢰성 있는 이미지를 생각하며 색과 이미지를 선정<br>
+              레이아웃에 변화를 줘서 단조로움을 방지<br>
+              사용자 편의를 위한 top버튼과 검색바<br>
+              <!--<img class="check_2" src="img/xhtml10-black.png" alt="xhtml1.0 웹 표준 통과">	
+					</p>
+					<img src="img/dell_tool.png" alt="xhtml+css+jq">-->
+          </figcaption>
+        </figure>
+        <div class="star_line_2"></div>
+        <figure class="doom_thumb">
+          <a href="javascript:;"><img src="img/doom.png" alt="두둠칫 화면"></a>
+          <figcaption>
+            <p>모바일 어플리케이션 디자인</p>
+            <strong>DooDoomChit - 노래방 앱</strong>
+            <p>
+              사용자 요구에 따른 UX 개선에 초점<br>
+              가수,콘서트를 주제로 한 백그라운드 이미지 배치<br>
+              트렌드 분석에 따른 색상 전환 효과 사용<br>
+              북마크 표시와 검색옵션 전환 기능 구현
+            </p>
+            <img src="img/mobile_tool.png" alt="html5+css+jq">
+          </figcaption>
+        </figure>
+
+        <div class="star_line_3"></div>
+        <figure class="cat_thumb">
+          <a href="javascript:;"><img src="img/cat.png" alt="엇! 고양이! 화면"></a>
+          <figcaption>
+            <p>모바일 어플리케이션 디자인</p>
+            <strong>엇! 고양이! - 게임 앱</strong>
+            <p>
+              setTimeout, count 함수를 이용한 두더지 잡기 게임<br>
+              플랫 일러스트를 사용해 심플하고 아기자기한 느낌을 표현
+            </p>
+            <img src="img/mobile_tool.png" alt="html5+css+jq">
+          </figcaption>
+        </figure>
+
+        <section class="etc_wrap">
+          <div class="etc_title anime">
+            <h3><img src="img/etc_title.png" alt="etc"></h3>
+            <span></span>
+            <span></span>
+          </div>
+          <ul class="portfolio-slides">
+
+            <li class="single">
+              <a href="img/slide_a_1.jpg" data-fancybox data-caption="일러스트_1 2017" data-selectable="true">
+                <img src="img/etc_1.png" alt="일러스트_1 2017">
+              </a>
+            </li>
+            <li class="single">
+              <a href="img/slide_a_2.png" data-type="image" data-fancybox data-fancybox data-caption="일러스트_웹 배경화면 2017"
+                data-selectable="true">
+                <img src="img/etc_2.png" alt="일러스트_웹 배경화면 2017">
+              </a>
+            </li>
+            <li class="single">
+              <a href="img/slide_a_3.jpg" data-type="image" data-fancybox data-caption="플랫 아이콘_초밥 2017"
+                data-selectable="true">
+                <img src="img/etc_3.png" alt="플랫 아이콘_초밥 2017">
+              </a>
+            </li>
+            <li class="single">
+              <a href="img/slide_a_4.jpg" data-type="image" data-fancybox data-caption="상세페이지 디자인 2017"
+                data-selectable="true">
+                <img src="img/etc_4.png" alt="상세페이지 디자인 2017">
+              </a>
+            </li>
+            <li class="single">
+              <a href="img/slide_a_5.png" data-type="image" data-fancybox data-caption="앱 소스용 캐릭터 디자인 2017"
+                data-selectable="true">
+                <img src="img/etc_5.png" alt="앱 소스용 캐릭터 디자인 2017">
+              </a>
+            </li>
+            <li class="single">
+              <a href="img/slide_a_6.png" data-type="image" data-fancybox data-caption="캘린더 디자인_6월7월 2017"
+                data-selectable="true">
+                <img src="img/etc_6.png" alt="캘린더 디자인_6월7월 2017">
+              </a>
+            </li>
+            <li class="single">
+              <a href="img/slide_a_8.png" data-type="image" data-fancybox data-caption="인포그래픽_게임 상의 전염병 발발 2015"
+                data-selectable="true">
+                <img src="img/etc_8.png" alt="인포그래픽_게임 상의 전염병 발발 2015">
+              </a>
+            </li>
+          </ul>
+
+        </section>
+      </div>
+
+
+    </section>
+
+
+    <section id="contact_wrap">
+      <div class="contact_title anime">
+        <h2><img src="img/contact_title.png" alt="contact"></h2>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="contact_content_wrap">
+        <li class="call">010-4137-2596</li>
+        <li class="email">cjstkd0519@gmail.com</li>
+      </ul>
+
+
+    </section>
+
+    <footer>
+      <img src="img/copy.png" alt="Our Special Journey / Copyright © 2017 Lee Gyeongha">
+    </footer>
+
+
+
+  </div>
+
+</body>
+
+</html>
